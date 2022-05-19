@@ -14,7 +14,7 @@
                 <a href="#">Unnamed</a>
             </div>
             <ul class="botones">
-                <li id="bnMint" class="bnMint">
+                <li id="bnConect" class="bnConect">
                     <a>Conect Wallet</a>
                 </li>
             </ul>
@@ -32,20 +32,29 @@
     </header>
 
     <article>
+        <div class="dvAmount">
+            <div class="subtract" id="subtract">-</div>
+            <div class="amount" id="amount">1</div>
+            <div class="add" id="add">+</div>
+        </div>
+        <button class="bnMint" id="bnMint">
+            Mint
+        </button>
 
-            <div class="cntAlert" id="cntAlert">
-                <img src="./img/connected.png" alt="alert">
-                <p>You're connected to the ethereum network</p>
-            </div>
 
-            <div class="dcntAlert" id="dcntAlert">
-                <img src="./img/alert.png" alt="alert">
-                <p>You're disconnected to the ethereum network</p>
-                <div class="close2" id="alrClose">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                </div>
+        <div class="cntAlert" id="cntAlert">
+            <img src="./img/connected.png" alt="alert">
+            <p>You're connected to the ethereum network</p>
+        </div>
+
+        <div class="dcntAlert" id="dcntAlert">
+            <img src="./img/alert.png" alt="alert">
+            <p>You're disconnected to the ethereum network</p>
+            <div class="close2" id="alrClose">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
             </div>
+        </div>
 
     </article>
 

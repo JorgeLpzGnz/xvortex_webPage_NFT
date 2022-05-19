@@ -37,13 +37,13 @@ a{
     text-shadow: none;
 }
 
-#bnMint{
+.bnConect{
     background: #ffffff;
     margin: 0px 30px;
     padding: 10px;
 }
 
-#bnMint a{
+.bnConect a{
     color: rgb(0, 0, 0);
 }
 
@@ -125,6 +125,7 @@ a{
 
 .cntAlert{
     position: fixed;
+    left: 0px;
     bottom: 30px;
     display: flex;
     clip-path: circle(0% at 0 50%);
@@ -145,6 +146,7 @@ a{
 
 .dcntAlert{
     position: fixed;
+    left: 0px;
     bottom: 30px;
     display: flex;
     clip-path: circle(0% at 0 50%);
@@ -197,4 +199,58 @@ a{
     height: 4px;
     transform: rotateZ(-45deg);
     position: absolute;
+}
+
+/************* contenido *****************/
+
+article{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/************ minteo *********************/
+
+.dvAmount{
+    width: 200px;
+    height: 40px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subtract{
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.amount{
+    width: 60%;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+}
+
+.add{
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.bnMint {
+    background: #ffffff;
+    padding: 10px 30px;
+    cursor: pointer;
+    border: 2px solid #000000;
 }
