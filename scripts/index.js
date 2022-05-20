@@ -745,10 +745,10 @@ const abi = [
         "type": "receive"
     }
 ]
-
 var flag = false
-
 var amount = parseInt(itemAmount.innerHTML)
+
+// NFT amount
 
 itemSubtract.addEventListener('click', () => {
     if(amount > 1){
@@ -762,31 +762,6 @@ itemAdd.addEventListener('click', () => {
         amount++
         itemAmount.innerHTML = amount
     }
-})
-
-
-
-
-function delay( num ){
-    return new Promise((resolve) => {
-        setTimeout( resolve, n * 1000)
-    })
-}
-
-itemMint.addEventListener('click', async() => {
-
-    if( flag ){
-
-        mint()
-
-    }else{
-
-        login()
-
-        mint()
-
-    }
-
 })
 
 itemConect.addEventListener('click', function(){
@@ -810,85 +785,15 @@ connect.addEventListener('click',async function() {
   }
 })
 
-let chainId
+// login and logout
 
 async function login(){
 
     if(window.ethereum){
-  
-      await window.ethereum
-                  .request({ method: 'wallet_requestPermissions',
-                             params: [
-                                  {
-                                 eth_accounts: {}
-                                  }
-                                ]
-                          })
 
-      await window.ethereum.request({
-            "id": 1,
-                "jsonrpc": "2.0",
-                "method": "wallet_switchEthereumChain",
-                "params": [
-                    {
-                    "chainId": "0x4",
-                    }
-                ]
-                })
+      permissions()
 
-    flag = true
-
-    itemConect.classList.add('walletAddress')
-
-    popup.classList.remove('visible')
-
-    let catch1 = /^\w{5}/
-
-    let catch2 = /\w{4}$/
-            
-    let test1 = ethereum.selectedAddress.match(catch1)
-
-    let test2 = ethereum.selectedAddress.match(catch2)
-
-    itemConect.innerHTML = test1 + '...' + test2
-
-    ethereum.on('accountsChanged', () => {
-
-      test1 = ethereum.selectedAddress.match(catch1)
-
-      test2 = ethereum.selectedAddress.match(catch2)
-
-      itemConect.innerHTML = test1 + '...' + test2
-
-    })
-
-    
-
-      ethereum.on('chainChanged', (chainId) => {
-
-          if(chainId === '0x4'){
-
-            dcntAlert.classList.remove('show2')
-            cntAlert.classList.add('show')
-            cntAlert.style.zIndex = 10
-            setTimeout(() => {
-                cntAlert.classList.remove('show'); 
-                cntAlert.style.zIndex = 0
-            }, 4000)
-
-          }else{
-
-            cntAlert.style.zIndex = 0
-            dcntAlert.classList.add('show2')
-
-          }
-      });
-
-      
-
-      chainId = await ethereum.request({ method: 'eth_chainId' });
-
-      
+      changeChain()
 
     }else{
       console.log('install metamask')
@@ -905,6 +810,32 @@ function logout(){
 
 }
 
+// mint NFTs
+
+itemMint.addEventListener('click', async() => {
+
+    if( flag ){
+
+        console.log('fue el if')
+
+        mint()
+
+    }else{
+
+        console.log('fue el else')
+
+        login()
+
+        if( flag ){
+
+            mint()
+
+        }
+
+    }
+
+})
+
 async function mint(){
 
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -917,20 +848,88 @@ async function mint(){
 
     const totalCost = mintCost.mul( amount )
 
-    const mint = await contract.connect(signer).mintLifeOutGenesis(
-        
+    return await contract.mintLifeOutGenesis(
         amount,
         {
             value : totalCost
         }).then((tx) => {
             console.log("Transaction occured: ", tx.hash);
-        })
-        .catch((x) => console.log(x.error.message));
+        }).catch((x) => console.log(x.error.message));
 
 }
 
+// get metamask permissions
 
+async function permissions(){
 
+  await window.ethereum
+                  .request({ method: 'wallet_requestPermissions',
+                             params: [
+                                  {
+                                 eth_accounts: {}
+                                  }
+                                ]
+                          })
+        .then(() => {
+
+            itemConect.classList.add('walletAddress')
+
+            popup.classList.remove('visible')
+
+            let catch1 = /^\w{5}/
+
+            let catch2 = /\w{4}$/
+            
+            let test1 = ethereum.selectedAddress.match(catch1)
+
+            let test2 = ethereum.selectedAddress.match(catch2)
+
+            itemConect.innerHTML = test1 + '...' + test2
+
+            flag = true
+
+        }).catch((x) => {
+            console.log(x.message)
+        })
+
+}
+
+// change web3 chain
+
+async function changeChain(){
+  ethereum.on('chainChanged', (chainId) => {
+
+    if(chainId === '0x4'){
+
+      dcntAlert.classList.remove('show2')
+      cntAlert.classList.add('show')
+      cntAlert.style.zIndex = 10
+      setTimeout(() => {
+          cntAlert.classList.remove('show'); 
+          cntAlert.style.zIndex = 0
+      }, 4000)
+
+    }else{
+
+      cntAlert.style.zIndex = 0
+      dcntAlert.classList.add('show2')
+
+    }
+
+  });
+
+  return await window.ethereum.request({
+    "id": 1,
+        "jsonrpc": "2.0",
+        "method": "wallet_switchEthereumChain",
+        "params": [
+            {
+            "chainId": "0x4",
+            }
+        ]
+        })
+        
+}
 
 
 
