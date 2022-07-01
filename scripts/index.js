@@ -1,3 +1,5 @@
+const article = document.getElementById('context')
+const itemMint = document.querySelector('.mint')
 const translatetexts = document.querySelectorAll("[data-content]");
 const menuContainer = document.querySelector(".menu-container");
 const botones = document.querySelector(".botones");
@@ -30,6 +32,21 @@ function showButtons() {
 }
 
 menuContainer.onclick = showButtons;
+
+// button mint function
+
+// function getMintPage(){
+//   const mintUrl = '../html/mint.html'
+//   article.innerHTML = ''
+//   fetch(mintUrl)
+//   .then((response) => response.text())
+//   .then((text) => {
+//     article.innerHTML = text
+//     console.log(text)
+//   })
+// }
+
+// itemMint.onclick = getMintPage
 
 // logo particles efect
 
@@ -208,6 +225,8 @@ function animate(){
 
 // change language
 
+let selectedLanguage = "en";
+
 async function language(element) {
   const requestJson = await fetch(`../languages/${element}.json`);
   const texts = await requestJson.json();
@@ -220,13 +239,16 @@ async function language(element) {
   }
 }
 
+
 idioma.addEventListener("click", (e) => {
   if (e.target.dataset.function === "en") {
     language(e.target.dataset.function);
+    selectedLanguage = 'en'
   }
 
   if (e.target.dataset.function === "es") {
     language(e.target.dataset.function);
+    selectedLanguage = 'es'
   }
 });
 
