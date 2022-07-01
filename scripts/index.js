@@ -225,9 +225,9 @@ function animate(){
 
 // change language
 
-let selectedLanguage = "en";
+export let selectedLanguage = "en";
 
-async function language(element) {
+export async function language(element) {
   const requestJson = await fetch(`../languages/${element}.json`);
   const texts = await requestJson.json();
 

@@ -1,3 +1,4 @@
+import { language } from "../scripts/index.js";
 //Animacion parrafo pagina 1//
 const translatetexts = document.querySelectorAll("[data-content]");
 const menuContainer = document.querySelector(".menu-container");
@@ -23,17 +24,17 @@ menuContainer.onclick = showButtons;
 
 // change language
 
-async function language(element) {
-  const requestJson = await fetch(`../languages/${element}.json`);
-  const texts = await requestJson.json();
+// async function language(element) {
+//   const requestJson = await fetch(`../languages/${element}.json`);
+//   const texts = await requestJson.json();
 
-  for (const translatetext of translatetexts) {
-    const section = translatetext.dataset.content;
-    const type = translatetext.dataset.type;
+//   for (const translatetext of translatetexts) {
+//     const section = translatetext.dataset.content;
+//     const type = translatetext.dataset.type;
 
-    translatetext.innerHTML = texts[section][type];
-  }
-}
+//     translatetext.innerHTML = texts[section][type];
+//   }
+// }
 
 let selectedLanguage = "en";
 
